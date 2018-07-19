@@ -1,0 +1,13 @@
+<resources>
+    <style name="AppTheme" parent="android:Theme.Light.NoTitleBar"/>
+    <style name="TextA">
+        <item name="android:textColor">#fff</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/textSize</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="TextB">
+        <item name="android:textColor">#fff</item>
+        <item name="android:textSize">@dimen/textSize2</item>
+    </style>
+</resources>
