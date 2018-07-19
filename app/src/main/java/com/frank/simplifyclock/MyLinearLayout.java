@@ -3,10 +3,11 @@ package com.frank.simplifyclock;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.view.animation.Interpolator;
 import android.widget.LinearLayout;
 
 public class MyLinearLayout extends LinearLayout {
@@ -15,23 +16,26 @@ public class MyLinearLayout extends LinearLayout {
 
     public MyLinearLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            moveIn = ObjectAnimator.ofFloat(this, "translationY", -130, 130, -130);
-            moveIn.setRepeatCount(ValueAnimator.INFINITE);
-            animSet = new AnimatorSet();
-            animSet.play(moveIn);
-            animSet.setDuration(13000);
-            animSet.start();
-        }
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public void isMove(boolean isMove){
-        if (isMove){
+    public void move(float... values){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            moveIn = ObjectAnimator.ofFloat(this, "translationY", values);
+            moveIn.setRepeatCount(ValueAnimator.INFINITE);
+            moveIn.setInterpolator(new Interpolator() {
+                @Override public float getInterpolation(float input) {
+                    return input;
+                }
+            });
+            animSet = new AnimatorSet();
+            animSet.play(moveIn);
+            if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                //竖屏
+                animSet.setDuration(30000);
+            }else {
+                animSet.setDuration(9000);
+            }
             animSet.start();
-        }else {
-            animSet.cancel();
         }
     }
 }

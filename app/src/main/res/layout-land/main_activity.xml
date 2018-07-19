@@ -24,21 +24,21 @@
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:layout_centerInParent="true">
-                <TextView
+                <com.frank.simplifyclock.MyTextView
                     android:id="@+id/hour_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/TextA"
                     android:text="18"
                     android:layout_centerInParent="true"/>
-                <TextView
-                    android:id="@+id/tv"
+                <com.frank.simplifyclock.MyTextView
+                    android:id="@+id/colon_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/TextA"
                     android:text=":"
                     android:layout_centerInParent="true"/>
-                <TextView
+                <com.frank.simplifyclock.MyTextView
                     android:id="@+id/minute_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -53,14 +53,14 @@
                 android:gravity="center_horizontal"
                 android:layout_below="@id/warp_1"
                 android:orientation="horizontal">
-                <TextView
+                <com.frank.simplifyclock.MyTextView
                     android:id="@+id/ymd_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     style="@style/TextB"
                     android:text="2018年7月10日"/>
-                <TextView
+                <com.frank.simplifyclock.MyTextView
                     android:id="@+id/ymd_2_tv"
                     android:visibility="gone"
                     android:layout_width="wrap_content"
@@ -68,14 +68,14 @@
                     style="@style/TextB"
                     android:layout_marginRight="10dp"
                     android:text="2018年6月初一"/>
-                <TextView
+                <com.frank.simplifyclock.MyTextView
                     android:id="@+id/day_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/TextB"
                     android:layout_marginRight="10dp"
                     android:text="AM 星期日 "/>
-                <TextView
+                <com.frank.simplifyclock.MyTextView
                     android:id="@+id/second_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

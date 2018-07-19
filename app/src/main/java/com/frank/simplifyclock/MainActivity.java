@@ -2,20 +2,23 @@ package com.frank.simplifyclock;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 public class MainActivity extends Activity implements View.OnClickListener{
-    private TextView hour,minute,second,ymd,ymd2,day;
+    private MyTextView hour,minute,second,ymd,ymd2,day,colon;
     private LinearLayout secondControl;
+    private MyLinearLayout myLinearLayout;
     private TimeHandler timeHandler;
     private TimeThread timeThread = TimeThread.getInstance();
     private SettingsData data;
+    private MySensor mySensor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +31,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
             getWindow().setNavigationBarColor(Color.BLACK);
         }
         init();
-        if (data.getShowLunar(false) == true){
+        if (data.getShowLunar(false)){
             ymd2.setVisibility(View.VISIBLE);
             ymd.setVisibility(View.GONE);
         }else {
@@ -46,17 +49,37 @@ public class MainActivity extends Activity implements View.OnClickListener{
         ymd.setOnClickListener(this);
         ymd2.setOnClickListener(this);
         secondControl.setOnClickListener(this);
+
+        mySensor = new MySensor((SensorManager) getSystemService(SENSOR_SERVICE));
+        mySensor.setOnLightChanged(new MySensor.OnLightChanged() {
+            @Override public void onHeight() {
+                Log.i("MainActivity","亮度高");
+                hour.toW();minute.toW();second.toW();ymd.toW();ymd2.toW();day.toW();colon.toW();
+            }
+            @Override public void onLow() {
+                Log.i("MainActivity","亮度低");
+                hour.toG();minute.toG();second.toG();ymd.toG();ymd2.toG();day.toG();colon.toG();
+            }
+        });
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus){
+            myLinearLayout.move(-(myLinearLayout.getTop()),myLinearLayout.getTop(),-(myLinearLayout.getTop()));
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (data.getShowSecond(true) == false){
+        if (!data.getShowSecond(true)){
             second.setVisibility(View.GONE);
         }else {
             second.setVisibility(View.VISIBLE);
         }
-        if (data.getShowLunar(false) == true){
+        if (data.getShowLunar(false)){
             ymd2.setVisibility(View.VISIBLE);
             ymd.setVisibility(View.GONE);
         }else {
@@ -75,6 +98,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 timeHandler.sendMessage(message);
             }
         });
+
     }
 
     public void init(){
@@ -85,9 +109,12 @@ public class MainActivity extends Activity implements View.OnClickListener{
         ymd = findViewById(R.id.ymd_tv);
         ymd2 = findViewById(R.id.ymd_2_tv);
         day = findViewById(R.id.day_tv);
+        colon = findViewById(R.id.colon_tv);
         secondControl = findViewById(R.id.second_control);
         timeThread = TimeThread.getInstance();
         timeHandler = new TimeHandler(hour,minute,second,ymd,ymd2,day);
+
+        myLinearLayout = findViewById(R.id.container2);
     }
 
     @Override

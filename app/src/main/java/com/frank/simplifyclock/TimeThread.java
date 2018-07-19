@@ -22,7 +22,7 @@ public class TimeThread extends Thread {
         do{
             try {
                 Thread.sleep(1000);
-                Log.i("TimeThread","--- One Second ---");
+//                Log.i("TimeThread","--- One Second ---");
                 second ++;
                 if (second == 60){
                     second = 0;
