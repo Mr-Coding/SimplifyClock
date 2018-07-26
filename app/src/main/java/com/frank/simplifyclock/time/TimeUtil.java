@@ -1,4 +1,4 @@
-package com.frank.simplifyclock;
+package com.frank.simplifyclock.time;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -1,6 +1,4 @@
-package com.frank.simplifyclock;
-
-import android.util.Log;
+package com.frank.simplifyclock.time;
 
 public class TimeThread extends Thread {
     private static TimeThread timeThread;

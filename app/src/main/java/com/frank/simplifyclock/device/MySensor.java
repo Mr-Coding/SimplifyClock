@@ -1,4 +1,4 @@
-package com.frank.simplifyclock;
+package com.frank.simplifyclock.device;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;

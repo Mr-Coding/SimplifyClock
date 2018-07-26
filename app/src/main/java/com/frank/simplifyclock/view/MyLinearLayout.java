@@ -1,4 +1,4 @@
-package com.frank.simplifyclock;
+package com.frank.simplifyclock.view;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;

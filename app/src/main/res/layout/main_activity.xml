@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000">
-    <com.frank.simplifyclock.MyTextView
+    <com.frank.simplifyclock.view.MyTextView
         android:id="@+id/colon_tv"
         android:layout_width="0dp"
         android:layout_height="0dp"/>
-    <com.frank.simplifyclock.MyLinearLayout
+    <com.frank.simplifyclock.view.MyLinearLayout
         android:id="@+id/container2"
         android:layout_width="230dp"
         android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_centerInParent="true">
-            <com.frank.simplifyclock.MyTextView
+            <com.frank.simplifyclock.view.MyTextView
                 android:id="@+id/hour_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -30,13 +30,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center">
-                <com.frank.simplifyclock.MyTextView
+                <com.frank.simplifyclock.view.MyTextView
                     android:id="@+id/ymd_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/TextB"
                     android:text="2018年7月10日"/>
-                <com.frank.simplifyclock.MyTextView
+                <com.frank.simplifyclock.view.MyTextView
                     android:id="@+id/ymd_2_tv"
                     android:visibility="gone"
                     android:layout_width="wrap_content"
@@ -49,14 +49,14 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:orientation="horizontal">
-                    <com.frank.simplifyclock.MyTextView
+                    <com.frank.simplifyclock.view.MyTextView
                         android:id="@+id/day_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/TextB"
                         android:layout_marginRight="10dp"
                         android:text="AM 星期日"/>
-                    <com.frank.simplifyclock.MyTextView
+                    <com.frank.simplifyclock.view.MyTextView
                         android:id="@+id/second_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -64,12 +64,12 @@
                         android:text="50s"/>
                 </LinearLayout>
             </LinearLayout>
-            <com.frank.simplifyclock.MyTextView
+            <com.frank.simplifyclock.view.MyTextView
                 android:id="@+id/minute_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/TextA"
                 android:text="55" />
         </LinearLayout>
-    </com.frank.simplifyclock.MyLinearLayout>
+    </com.frank.simplifyclock.view.MyLinearLayout>
 </RelativeLayout>

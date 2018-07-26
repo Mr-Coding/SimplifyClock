@@ -1,8 +1,7 @@
-package com.frank.simplifyclock;
+package com.frank.simplifyclock.time;
 
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.widget.TextView;
 
 public class TimeHandler extends Handler {

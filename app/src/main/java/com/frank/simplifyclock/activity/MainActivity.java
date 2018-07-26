@@ -1,4 +1,4 @@
-package com.frank.simplifyclock;
+package com.frank.simplifyclock.activity;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -11,12 +11,22 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
+import com.frank.simplifyclock.device.MySensor;
+import com.frank.simplifyclock.R;
+import com.frank.simplifyclock.SettingsData;
+import com.frank.simplifyclock.time.MyTimer;
+import com.frank.simplifyclock.time.TimeHandler;
+import com.frank.simplifyclock.time.TimeThread;
+import com.frank.simplifyclock.time.TimeUtil;
+import com.frank.simplifyclock.view.MyLinearLayout;
+import com.frank.simplifyclock.view.MyTextView;
+
 public class MainActivity extends Activity implements View.OnClickListener{
     private MyTextView hour,minute,second,ymd,ymd2,day,colon;
     private LinearLayout secondControl;
     private MyLinearLayout myLinearLayout;
     private TimeHandler timeHandler;
-    private TimeThread timeThread = TimeThread.getInstance();
+//    private TimeThread timeThread = TimeThread.getInstance();
     private SettingsData data;
     private MySensor mySensor;
 
@@ -61,6 +71,12 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 hour.toG();minute.toG();second.toG();ymd.toG();ymd2.toG();day.toG();colon.toG();
             }
         });
+
+        new MyTimer().setOnTimeChange(new MyTimer.OnTimeChange() {
+            @Override public void onSecond() {
+                timeHandler.sendEmptyMessage(0);
+            }
+        });
     }
 
     @Override
@@ -74,6 +90,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
     @Override
     protected void onResume() {
         super.onResume();
+        hideBottomUIMenu();
         if (!data.getShowSecond(true)){
             second.setVisibility(View.GONE);
         }else {
@@ -86,19 +103,6 @@ public class MainActivity extends Activity implements View.OnClickListener{
             ymd2.setVisibility(View.GONE);
             ymd.setVisibility(View.VISIBLE);
         }
-        if (!timeThread.isAlive()){
-            timeThread.start();
-        }
-
-        timeThread.setTimeListener(new TimeThread.SecondChange(){
-            @Override
-            public void onSecond(String second) {
-                Message message=new Message();
-                message.arg1=Integer.parseInt(second);
-                timeHandler.sendMessage(message);
-            }
-        });
-
     }
 
     public void init(){
@@ -111,16 +115,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
         day = findViewById(R.id.day_tv);
         colon = findViewById(R.id.colon_tv);
         secondControl = findViewById(R.id.second_control);
-        timeThread = TimeThread.getInstance();
         timeHandler = new TimeHandler(hour,minute,second,ymd,ymd2,day);
 
         myLinearLayout = findViewById(R.id.container2);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        timeThread = null;
     }
 
     @Override
@@ -145,6 +142,20 @@ public class MainActivity extends Activity implements View.OnClickListener{
                     data.setShowSecond(true);
                 }
                 break;
+        }
+    }
+
+    protected void hideBottomUIMenu() {
+        //隐藏虚拟按键，并且全屏
+        if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) { // lower api
+            View v = this.getWindow().getDecorView();
+            v.setSystemUiVisibility(View.GONE);
+        } else if (Build.VERSION.SDK_INT >= 19) {
+            //for new api versions.
+            View decorView = getWindow().getDecorView();
+            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN;
+            decorView.setSystemUiVisibility(uiOptions);
         }
     }
 }
