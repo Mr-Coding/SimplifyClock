@@ -1,57 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:background="#000"
-    android:gravity="center"
-    android:orientation="vertical">
-    <com.frank.simplifyclock.view.MyLinearLayout
-        android:id="@+id/container2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.frank.simplifyclock.view.MoveLayout
+        android:id="@+id/move_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_centerInParent="true">
-        <RelativeLayout
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_centerInParent="true">
+            android:gravity="center">
             <LinearLayout
-                android:id="@+id/warp_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:gravity="center"
-                android:layout_centerInParent="true">
+                android:orientation="horizontal">
                 <com.frank.simplifyclock.view.MyTextView
                     android:id="@+id/hour_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/TextA"
-                    android:text="18"
-                    android:layout_centerInParent="true"/>
+                    android:text="18"/>
                 <com.frank.simplifyclock.view.MyTextView
                     android:id="@+id/colon_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/TextA"
                     android:text=":"
-                    android:layout_centerInParent="true"/>
+                    android:textSize="150sp"/>
                 <com.frank.simplifyclock.view.MyTextView
                     android:id="@+id/minute_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/TextA"
-                    android:text="55"
-                    android:layout_centerInParent="true"/>
+                    android:text="55"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/second_control"
                 android:layout_width="490dp"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:layout_below="@id/warp_1"
+                android:layout_marginBottom="35dp"
                 android:orientation="horizontal">
                 <com.frank.simplifyclock.view.MyTextView
                     android:id="@+id/ymd_tv"
@@ -74,17 +68,16 @@
                     android:layout_height="wrap_content"
                     style="@style/TextB"
                     android:layout_marginRight="10dp"
-                    android:text="AM 星期日 "/>
+                    android:text="AM 星期日"/>
                 <com.frank.simplifyclock.view.MyTextView
                     android:id="@+id/second_tv"
+                    style="@style/TextB"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/TextB"
-                    android:text="50s"/>
+                    android:text="50s" />
             </LinearLayout>
-        </RelativeLayout>
-    </com.frank.simplifyclock.view.MyLinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="80dp" />
-</LinearLayout>
+        </LinearLayout>
+
+    </com.frank.simplifyclock.view.MoveLayout>
+
+</RelativeLayout>

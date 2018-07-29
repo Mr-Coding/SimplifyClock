@@ -5,6 +5,8 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/textSize</item>
         <item name="android:gravity">center</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:layout_marginBottom">-20dp</item>
     </style>
     <style name="TextB">
         <item name="android:textColor">#fff</item>
