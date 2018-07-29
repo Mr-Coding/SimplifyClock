@@ -17,16 +17,17 @@ import com.frank.simplifyclock.R;
 import com.frank.simplifyclock.SettingsData;
 import com.frank.simplifyclock.time.MyTimer;
 import com.frank.simplifyclock.time.TimeHandler;
+import com.frank.simplifyclock.time.TimeThread;
 import com.frank.simplifyclock.time.TimeUtil;
-import com.frank.simplifyclock.view.MyLinearLayout;
+import com.frank.simplifyclock.view.MoveLayout;
 import com.frank.simplifyclock.view.MyTextView;
 
 public class MainActivity extends Activity implements View.OnClickListener{
     private MyTextView hour,minute,second,ymd,ymd2,day,colon;
     private LinearLayout secondControl;
-    private MyLinearLayout myLinearLayout;
+    private MoveLayout moveLayout;
     private TimeHandler timeHandler;
-//    private TimeThread timeThread = TimeThread.getInstance();
+    private TimeThread timeThread;
     private SettingsData data;
     private MySensor mySensor;
 
@@ -81,17 +82,24 @@ public class MainActivity extends Activity implements View.OnClickListener{
     }
 
     @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if (hasFocus){
-            myLinearLayout.move(-(myLinearLayout.getTop()),myLinearLayout.getTop(),-(myLinearLayout.getTop()));
-        }
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
         hideBottomUIMenu();
+
+        if (!timeThread.isAlive()){
+            timeThread.isRunning = true;
+            timeThread.start();
+        }
+        timeThread.setTimeListener(new TimeThread.SecondChange() {
+            @Override public void onSecond() {
+                runOnUiThread(new Runnable() {
+                    @Override public void run() {
+                        moveLayout.setMove();
+                    }
+                });
+            }
+        });
+
         if (!data.getShowSecond(true)){
             second.setVisibility(View.GONE);
         }else {
@@ -117,8 +125,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
         colon = findViewById(R.id.colon_tv);
         secondControl = findViewById(R.id.second_control);
         timeHandler = new TimeHandler(hour,minute,second,ymd,ymd2,day);
-
-        myLinearLayout = findViewById(R.id.container2);
+        timeThread = TimeThread.getInstance();
+        moveLayout = findViewById(R.id.move_layout);
     }
 
     @Override
