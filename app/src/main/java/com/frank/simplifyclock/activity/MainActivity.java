@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
+import com.frank.simplifyclock.device.ActivityBrightnessManager;
 import com.frank.simplifyclock.device.MySensor;
 import com.frank.simplifyclock.R;
 import com.frank.simplifyclock.SettingsData;
@@ -66,11 +67,13 @@ public class MainActivity extends Activity implements View.OnClickListener{
         mySensor.setOnLightChanged(new MySensor.OnLightChanged() {
             @Override public void onHeight() {
                 Log.i("MainActivity","亮度高");
-                hour.toW();minute.toW();second.toW();ymd.toW();ymd2.toW();day.toW();colon.toW();
+//                hour.toW();minute.toW();second.toW();ymd.toW();ymd2.toW();day.toW();colon.toW();
+                ActivityBrightnessManager.changeAppBrightness(MainActivity.this,-1);
             }
             @Override public void onLow() {
                 Log.i("MainActivity","亮度低");
-                hour.toG();minute.toG();second.toG();ymd.toG();ymd2.toG();day.toG();colon.toG();
+//                hour.toG();minute.toG();second.toG();ymd.toG();ymd2.toG();day.toG();colon.toG();
+                ActivityBrightnessManager.changeAppBrightness(MainActivity.this,5);
             }
         });
 
